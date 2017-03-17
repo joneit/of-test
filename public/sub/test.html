@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Child app's main window</title>
+    <style>
+        body { margin:0 }
+        td { padding:3px; text-align: left }
+        * { outline:0 }
+        a { text-decoration: none; font-size:14pt; font-weight:bold; color:grey; margin-left:5px }
+        a:hover { color:black }
+        input { height:22px; width:99%; padding-left:5px; font-size:11pt; border:0.5px solid #ccc; border-radius:3px }
+    </style>
 </head>
 <body>
-Child window!
+    <table style="background-color:#eee; width:100%">
+        <tr>
+            <td style="white-space:nowrap">
+                <a href="javascript:history.go(-1)">&#x2190;</a>
+                <a href="javascript:history.go(1)">&#x2192;</a>
+                <a href="javascript:history.go(0)">&#x21bb;</a>
+            </td>
+            <td width="100%">
+                <input onchange="location.href = this.value">
+            </td>
+        </tr>
+    </table>
+    <div style="margin:5px">
+        Child app!
+    </div>
+    <script>document.querySelector('input').value = location.href;</script>
 </body>
 </html>

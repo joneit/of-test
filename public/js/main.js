@@ -109,6 +109,7 @@
                 console.log("Child application successfully created");
                 childApp.run(function() {
                     setTrayIcon(childApp, "img/2.png");
+                    //childApp.window.nativeWindow
                 });
             }, function(error) {
                 console.log(`Error creating application: ${error}`);
