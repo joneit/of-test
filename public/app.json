@@ -1,0 +1,25 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "mytest",
+        "url": "http://localhost:5000/index.html",
+        "uuid": "mytest-1234567890",
+        "applicationIcon": "http://localhost:5000/favicon.ico",
+        "autoShow": true,
+        "backgroundColor": "cyan",
+        "mainWindowOptions": {
+            "title": "Scoobee Doo",
+            "name": "Yada yada"
+        }
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "alpha"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Just a first test.",
+        "icon": "http://localhost:5000/favicon.ico",
+        "name": "mytest"
+    }
+}
