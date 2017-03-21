@@ -94,8 +94,10 @@
 
             setTrayIcon(application, "img/1.png");
 
+            var path = application.window.contentWindow.location.href;
+
             var childApp = new fin.desktop.Application({
-                url: "http://localhost:5000/sub/test.html",
+                url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
                 uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
                 name: "Application Name",
                 mainWindowOptions: {
@@ -114,6 +116,7 @@
             }, function(error) {
                 console.log(`Error creating application: ${error}`);
             });
+
         });
     });
 

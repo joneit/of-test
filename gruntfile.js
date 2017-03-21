@@ -1,7 +1,7 @@
 /* jshint node: true*/
 'use strict';
 module.exports = function(grunt) {
-    var target = grunt.option('target') || 'http://localhost:5000',
+    var target = grunt.option('target') || 'http://mymachost:5000',
         port = process.env.PORT || 5000,
         files = {
             js: [
