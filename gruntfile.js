@@ -97,7 +97,7 @@ module.exports = function(grunt) {
                             applicationIcon: target + '/favicon.ico'
                         },
                         runtime: {
-                            version: 'alpha'
+                            version: 'canary'
                         },
                         shortcut: {
                             icon: target + '/favicon.ico'

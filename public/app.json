@@ -14,7 +14,7 @@
     },
     "runtime": {
         "arguments": "",
-        "version": "alpha"
+        "version": "canary"
     },
     "shortcut": {
         "company": "OpenFin",

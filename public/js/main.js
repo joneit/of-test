@@ -18,15 +18,6 @@
         });
     };
 
-    //add the event listener for the learn more button.
-    var setLearnMoreEventHandler = function() {
-        var learnMoreButton = document.querySelector('#learn-more');
-
-        learnMoreButton.addEventListener('click', function() {
-            fin.desktop.System.openUrlWithBrowser('https://openfin.co/developers/javascript-api/');
-        });
-    };
-
     var setVisibilityDisplayOnce = function() {
         document.querySelector('#inter-app-messages').style.display = 'block';
         setVisibilityDisplayOnce = function() {};
@@ -64,8 +55,9 @@
             //update UI and set event handlers.
             updateAdapterIndicator();
             setVersionNumber();
-            setLearnMoreEventHandler();
             subscribeToInterAppBus();
+            setChildWinEventHandler();
+            setChildAppEventHandler();
 
             /*
             fin.desktop.Window.getCurrent().getOptions(o => console.log('main: ', o));
@@ -88,37 +80,60 @@
             }, 2000);
             */
 
-            var application = fin.desktop.Application.getCurrent();
-            /* jshint -W087 */
-            //debugger;
-
-            setTrayIcon(application, "img/1.png");
-
-            var path = application.window.contentWindow.location.href;
-
-            var childApp = new fin.desktop.Application({
-                url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
-                uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
-                name: "Application Name",
-                mainWindowOptions: {
-                    defaultHeight: 600,
-                    defaultWidth: 800,
-                    defaultTop: 300,
-                    defaultLeft: 300,
-                    autoShow: true
-                }
-            }, function() {
-                console.log("Child application successfully created");
-                childApp.run(function() {
-                    setTrayIcon(childApp, "img/2.png");
-                    //childApp.window.nativeWindow
-                });
-            }, function(error) {
-                console.log(`Error creating application: ${error}`);
-            });
-
+            setTrayIcon(fin.desktop.Application.getCurrent(), "img/1.png");
         });
     });
+
+    var setChildWinEventHandler = function() {
+        var learnMoreButton = document.querySelector('#child-win');
+
+        learnMoreButton.addEventListener('click', function() {
+            var path = fin.desktop.Window.getCurrent().contentWindow.location.href,
+                childWin = new fin.desktop.Window({
+                    name: getRandomGUID(),
+                    url: path, //path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
+                    autoShow: true,
+                    // defaultWidth: 800,
+                    // defaultHeight: 500,
+                    defaultTop: 300,
+                    defaultLeft: 300,
+                    frame: true,
+                    resizable: false,
+                    state: "normal"
+                }, function() {}, function(error) {
+                    console.log(`Error creating child window: ${error}`);
+                });
+        });
+    };
+
+    var setChildAppEventHandler = function() {
+        var childAppButton = document.querySelector('#child-app');
+
+        childAppButton.addEventListener('click', function() {
+            var application = fin.desktop.Application.getCurrent(),
+                path = application.window.contentWindow.location.href,
+                childApp = new fin.desktop.Application({
+                    url: path, //path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
+                    uuid: getRandomGUID(),
+                    name: "Application Name",
+                    mainWindowOptions: {
+                        // defaultWidth: 800,
+                        // defaultHeight: 500,
+                        defaultTop: 300,
+                        defaultLeft: 300,
+                        autoShow: true
+                    }
+                }, function() {
+                    console.log("Child application successfully created");
+                    childApp.run(function() {
+                        setTrayIcon(childApp, "img/2.png");
+                        //childApp.window.nativeWindow
+                    });
+                }, function(error) {
+                    console.log(`Error creating child application: ${error}`);
+                });
+        });
+    };
 
     function log(data) {
         console.log('>>>>>>>>>>>>>>>>>>>>> ', data);
@@ -127,12 +142,16 @@
     function setTrayIcon(application, path) {
         var filename = path.match(/^(.*\/)?(.*)\./)[2]; // extract just the filename (chars between last slash and last period)
         application.window.getAbsolutePath(path, log);
-        application.setTrayIcon(path, function(clickInfo) {
+        application.setTrayIcon('', function(clickInfo) {
             console.log(`The mouse has clicked ${filename} at (${clickInfo.x},${clickInfo.y})`);
         }, function(error) {
             console.log(`Tray icon ${filename} set`);
         }, function(error) {
             console.log(`Error setting tray icon ${filename}: ${error}`);
         });
+    }
+
+    function getRandomGUID() {
+        return [8, 4, 4, 4, 12].map(n => Math.floor((1 + Math.random()) * Math.pow(16, n)).toString(16).toUpperCase().substr(1)).join('-');
     }
 }());
