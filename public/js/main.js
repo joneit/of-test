@@ -91,7 +91,7 @@
             var path = fin.desktop.Window.getCurrent().contentWindow.location.href,
                 childWin = new fin.desktop.Window({
                     name: getRandomGUID(),
-                    url: path, //path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
+                    url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
                     autoShow: true,
                     // defaultWidth: 800,
                     // defaultHeight: 500,
@@ -113,7 +113,7 @@
             var application = fin.desktop.Application.getCurrent(),
                 path = application.window.contentWindow.location.href,
                 childApp = new fin.desktop.Application({
-                    url: path, //path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
+                    url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
                     uuid: getRandomGUID(),
                     name: "Application Name",
                     mainWindowOptions: {
@@ -127,7 +127,6 @@
                     console.log("Child application successfully created");
                     childApp.run(function() {
                         setTrayIcon(childApp, "img/2.png");
-                        //childApp.window.nativeWindow
                     });
                 }, function(error) {
                     console.log(`Error creating child application: ${error}`);
@@ -135,14 +134,9 @@
         });
     };
 
-    function log(data) {
-        console.log('>>>>>>>>>>>>>>>>>>>>> ', data);
-    }
-
     function setTrayIcon(application, path) {
-        var filename = path.match(/^(.*\/)?(.*)\./)[2]; // extract just the filename (chars between last slash and last period)
-        application.window.getAbsolutePath(path, log);
-        application.setTrayIcon('', function(clickInfo) {
+        var filename = path ? path.match(/^(.*\/)?(.*)\./)[2] : ''; // extract just the filename (chars between last slash and last period)
+        application.setTrayIcon(path, function(clickInfo) {
             console.log(`The mouse has clicked ${filename} at (${clickInfo.x},${clickInfo.y})`);
         }, function(error) {
             console.log(`Tray icon ${filename} set`);
