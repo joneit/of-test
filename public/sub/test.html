@@ -16,8 +16,9 @@
     <table style="background-color:#eee; width:100%">
         <tr>
             <td style="white-space:nowrap">
-                <a href="javascript:history.go(-1)">&#x2190;</a>
-                <a href="javascript:history.go(1)">&#x2192;</a>
+                <a href="javascript:debug()"><i>d</i></a>
+                <a href="javascript:history.back()">&#x2190;</a>
+                <a href="javascript:history.forward()">&#x2192;</a>
                 <a href="javascript:history.go(0)">&#x21bb;</a>
             </td>
             <td width="100%">
@@ -29,5 +30,10 @@
         Child app!
     </div>
     <script>document.querySelector('input').value = location.href;</script>
+    <script>
+        function debug() {
+            debugger;
+        }
+    </script>
 </body>
 </html>

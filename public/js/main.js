@@ -88,7 +88,9 @@
         var learnMoreButton = document.querySelector('#child-win');
 
         learnMoreButton.addEventListener('click', function() {
-            var path = fin.desktop.Window.getCurrent().contentWindow.location.href,
+            // debugger;
+            var ofWindow = fin.desktop.Window.getCurrent(),
+                path = ofWindow.getNativeWindow().location.href,
                 childWin = new fin.desktop.Window({
                     name: getRandomGUID(),
                     url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
@@ -100,7 +102,9 @@
                     frame: true,
                     resizable: false,
                     state: "normal"
-                }, function() {}, function(error) {
+                }, function() {
+
+                }, function(error) {
                     console.log(`Error creating child window: ${error}`);
                 });
         });
@@ -111,7 +115,7 @@
 
         childAppButton.addEventListener('click', function() {
             var application = fin.desktop.Application.getCurrent(),
-                path = application.window.contentWindow.location.href,
+                path = application.window.getNativeWindow().location.href,
                 childApp = new fin.desktop.Application({
                     url: path.replace(/[^/]*$/, 'sub/test.html'), // replace all chars following last '/'
                     uuid: getRandomGUID(),

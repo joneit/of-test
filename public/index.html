@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+
   <div class="container">
     <div class="jumbotron">
       <div class="container">
@@ -25,7 +26,13 @@
           <p>
             <a class="btn btn-primary btn-lg" id="child-win" role="button">Make Child Win &hellip;</a>
           </p>
-          <p >
+          <br><a href="http://openfin.co" target="openfin">openfin</a>
+          <br><a href="http://google.com" target="google">google</a>
+          <br><a href="mailto:jonathan@openfin.co">mail me (no target attr)</a> <i>(window closes)</i>
+          <br><a href="mailto:jonathan@openfin.co" target="_top">mail me (target=_blank or _top)</a>
+          <br><a href="javascript:location.href='mailto:jonathan@openfin.co'" target="_blank">set location to mailto</a> <i>(window closes)</i>
+          <br><a href="javascript:window.open('mailto:jonathan@openfin.co')" target="_blank">open window with mailto</a>
+          <p>
             <div id="inter-app-messages" style="display:none;" class="alert alert-info">
                 <span id="message"></span> at: <span id="time"></span>
             </div>

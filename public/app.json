@@ -10,11 +10,17 @@
         "mainWindowOptions": {
             "title": "Scoobee Doo",
             "name": "Yada yada"
+        },
+        "contentNavigation": {
+            "whitelist": [
+                "http://mymachost/*",
+                "http://openfin.co/*"
+            ]
         }
     },
     "runtime": {
         "arguments": "",
-        "version": "canary"
+        "version": "6.49.20.2"
     },
     "shortcut": {
         "company": "OpenFin",
