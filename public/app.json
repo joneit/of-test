@@ -20,7 +20,7 @@
     },
     "runtime": {
         "arguments": "",
-        "version": "6.49.20.2"
+        "version": "canary"
     },
     "shortcut": {
         "company": "OpenFin",

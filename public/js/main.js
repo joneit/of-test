@@ -140,13 +140,26 @@
 
     function setTrayIcon(application, path) {
         var filename = path ? path.match(/^(.*\/)?(.*)\./)[2] : ''; // extract just the filename (chars between last slash and last period)
-        application.setTrayIcon(path, function(clickInfo) {
-            console.log(`The mouse has clicked ${filename} at (${clickInfo.x},${clickInfo.y})`);
-        }, function(error) {
+        var listeners = {
+            click: function(clickInfo) {
+                console.log(`The mouse has clicked icon "${filename}" with button ${clickInfo.button} at (${clickInfo.x},${clickInfo.y})`);
+                // console.log(JSON.stringify(clickInfo, undefined, 3));
+            },
+            hover: function(hoverInfo) {
+                console.log(`The mouse is hovering over icon "${filename}" at (${hoverInfo.x},${hoverInfo.y})`);
+                // console.log(JSON.stringify(hoverInfo, undefined, 3));
+            }
+        };
+
+        function ack() {
             console.log(`Tray icon ${filename} set`);
-        }, function(error) {
+        }
+
+        function nack(error) {
             console.log(`Error setting tray icon ${filename}: ${error}`);
-        });
+        }
+
+        application.setTrayIcon(path, listeners, ack, nack);
     }
 
     function getRandomGUID() {
